@@ -24,6 +24,7 @@ Osnova (poznámky)
     1. Vývojár
         + Človek, ktorý dokáže vyvýjať enterprise riešenia.
         + Vie navrhnúť vnútornú štruktúru projektu tak aby sa na tom dalo stavať dlhodobé riešnie. **(preformulovať)**
+        + Čistota kódu (štábna kultúra)
 1. Prečo je dôležité riešiť takéto veci?
 1. Ako sa to dá riešiť?
 1. S.O.L.I.D.
