@@ -22,7 +22,7 @@ Osnova (poznámky)
         + .. **(dopíš)**
         + Toto jednoducho máme mať v sebe. Je to predpoklad. Väčšina z toho sa nedá naučiť.
     1. Vývojár
-        + Vie udržať čistotu kódu.
+        + Čistota kódu (štábna kultúra)
         + Človek, ktorý dokáže vyvýjať enterprise riešenia.
         + Vie navrhnúť vnútornú štruktúru projektu tak aby sa na tom dalo stavať dlhodobé riešnie. **(preformulovať)**
         + Niekto to má prirodzene v sebe. Pozrie sa na vec a jednoducho vie. My ostatní smrteľníci to musíme nadobudnúť praxou.
