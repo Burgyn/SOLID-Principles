@@ -29,14 +29,14 @@ Osnova (poznámky)
 1. Prečo je dôležité riešiť takéto veci?
     + Pokiaľ vytvárame jednoúčelové aplikácie, scripty, jednoduché stránky, krátkodobé projekty, tak to riešiť nemusíme.
     + Pokiaľ však začíname pracovať na projekte, ktorý sa má dlhodobo rozvíjať, musíme sa zamýšľať nad jeho architektúrou.
-     
-    Vývojár začne stavať aplikáciu s dobrým a čistým návrhom podľa jeho aktuálnych skúusenosti. Ale časom, príde oprava chýb, zapracovanie nových požiadaviek, na ktoré sa v začiatkoch nemyslelo. A pôvodna architektúra je vystavená novým a novým požiadavkam.
-    
-    Môže sa stať, že po určitom čase bude zapracovávanie novej funkčnosti stále náročnejšie. Bude si to vyžadovať komplexné znalosti celého systému a zývyslosti v ňom. Každá ďalšia požiadavka bude drahšia.
-    
-    Vývojári zvyknú zvaľovať vynu práve na tieto nové požiadavky. Hovoria, že zákazník sa navymýšľa veci a nám to rozbíja celú aplikáciu.
 
-    Ktoje však za tento stav zodpovedný? 
+    Vývojár začne stavať aplikáciu s dobrým a čistým návrhom podľa jeho aktuálnych skúusenosti. Ale časom, príde oprava chýb, zapracovanie nových požiadaviek, na ktoré sa v začiatkoch nemyslelo. A pôvodna architektúra je vystavená novým a novým požiadavkam.
+
+    Môže sa stať, že po určitom čase bude zapracovávanie novej funkčnosti stále náročnejšie. Bude si to vyžadovať komplexné znalosti celého systému a zývyslosti v ňom. Každá ďalšia požiadavka bude drahšia.
+
+    Vývojári zvyknú zvaľovať vynu práve na tieto nové požiadavky. Hovoria, že zákazník si navymýšľa veci a nám to rozbíja celú aplikáciu.
+
+    Ktoje však za tento stav zodpovedný?
     Nie sú to nové požiadavky, je to práve ta pôvodná architektúra.
 
     Najčastejšími chybami bývajú:
@@ -48,10 +48,10 @@ Osnova (poznámky)
     + >Z vlastnej skúsenosti Vám poviem, že je to vlastne neriešiteľné. (Vždy sa nájde požiadavka /nemusí sa však realizovať/, ktorá naruší akokoľvek dobrý návrh)
     + Existuje, ale pár pravidiel, odporúčaní, zásad, usmernení, ..., ktoré to vedia výrazne zlepšiť.
     1. Výber správnej architektúry. (MVC, MVVM, MVP, Microservices, ...)
-        + Architektonické návrhové vzory. Dávajú nám šablónu na to, ako má vyzerať komunikácia medzi jednotlivými vrstvami aplikácie. 
+        + Architektonické návrhové vzory. Dávajú nám šablónu na to, ako má vyzerať komunikácia medzi jednotlivými vrstvami aplikácie.
     1. Nasledovanie Design Principles.
     1. Používanie správnych návrhových vzorov na riešenie jednotlivých problémov.
-        1. Design patterns. Pôvodne GOF 23 vzorov. Pokrývajú väčšinu problémov, s ktorými sa pri vývojí aplikácií stretneme. 
+        1. Design patterns. Pôvodne GOF 23 vzorov. Pokrývajú väčšinu problémov, s ktorými sa pri vývojí aplikácií stretneme.
 1. S.O.L.I.D.
     Dodržiavanie týchto princípov nám umožní vyhnúť sa veľkému množstvu chýb pri návrhu. Ukazujú nám cestu, ako máme prejsť z "tightly coupled code" na kód, ktorý má voľné väzby a správne zapúzderné bussiness pravidlá.
 
@@ -69,14 +69,45 @@ Osnova (poznámky)
     - ## **S** - Single Responsibility Principle (SRP)
         > Every software module should have only one reason to change.
 
+        poznámky
+        - Znamená to, že každá trieda, vo vašom systéme (aplikácia, knižnica, ...) má mať len jednu úloho. "Má robiť iba jednu."
+        - Neznamená to, že môže mať len jednu metódu, respektíve property. Môže tam byť samozrejme viacero metód, ale musia sa vzťahovať k jednemu účelu.
+        - Počas fázy návrhu nám to dáva dobrý spôsob identifikácie tried a núti nás to premýšľať, ako sa môže trieda v čase meniť.
+        - Je to jeden z najdôležitejších a zároveň najťažších problémov návrhu, učiť aká je zodpovednosť danej triedy a kde sú tie hranice.
+
+
+príklad:
+nejaký školský
+reportovanie. najskôr priamo v controllery, ale chceme to dať aj niekam inam. Do desktopovej aplikácie. respektíve v inej časti applikácie.
+Chceme to napojiť na databázu / xml / inú službu
+
     - ## **O** - Open closed Principle (OCP)
         > A software module/class is open for extension and closed for modification.
+
+        V jednoduchosti povedané: mali by sme navrhovať tak, aby v prípade potreby zapracovania nových požiadaviek by sme to mali byť schopný spraviť s minimálnym zásahom do pôvodnej triedy.
+        Pôvodnú triedu by sme mali upravovať ideálne iba v prípade opravy chýb.
+
+        riešenia:
+            - dedičnosť
+            - abstrakcia pomocou interfejsov
+            - generiká
+            - návrhové vzory: strategy, visitor
+
+        príklady:
+        školský areacalculator 3 úrovne (prva úroveň našitá na Rectangle, druhá cez objekt, tretia cez dedičnosť, respektíve dedičnosť)
+        reporty
+
     - ## **L** - Liskov substitution Principle (LSP)
         > You should be able to use any derived class instead of a parent class and have it behave in the same manner without modification
-    - 
+
+        Znamená to to, že keď dedíme triedu musíme si dávať pozor aby sme nenarušili správanie pôvodnej triedy.
+
+
+        Composition over inheritance
+    -
     - ## **I** - Interface Segregation Principle (ISP)
         > Clients should not be forced to implement interfaces they don't use. Instead of one fat interface many small interfaces are preferred based on groups of methods, each one serving one sub module.
-    - 
+    -
     - ## **D** - Dependency Inversion Princile (DIP)
         > High-level modules/classes should not depend upon low-level modules/classes. Both should depend upon abstractions. Secondly, abstractions should not depend upon details. Details should depend upon abstractions.
 
