@@ -6,7 +6,7 @@ Príprava na prednášku o S.O.L.I.D na FRI
 Osnova (poznámky)
 
 1. Kto som? Čo som? Prečo som tu?
-    + Moje meno je Milan Martiniak. Pracujem ako senior developer v spoločnosti KROS a.s.
+    + Moje meno je Milan Martiniak. Som absolvent FRI a v súčasnosti pracujem ako senior developer v spoločnosti KROS a.s.
     + Starám sa o technologický rast projektov a ľudí na nich.
 1. O čom si budeme rozprávať?
     + Dnes by som Vám chcel porozprávať svoje skúsenosti s vývojom vväčších (enterprise) projektov. S akými problémami sa stretávame a ako sa to dá riešiť.
@@ -20,7 +20,7 @@ Osnova (poznámky)
         + Nevie navrhnúť riešenie, ktoré sa ma dlhodobo rozvíjať.
         + Toto jednoducho máme mať v sebe. Je to predpoklad. Väčšina z toho sa nedá naučiť.
     1. Vývojár
-        + Čistota kódu (štábna kultúra)        
+        + Čistota kódu (štábna kultúra)
         + Vie navrhnúť vnútornú štruktúru projektu tak aby sa na tom dalo stavať dlhodobé riešnie.
         + Vie premyslieť súvyslosti..
         + Niekto to má prirodzene v sebe. Pozrie sa na vec a jednoducho vie. My ostatní smrteľníci to musíme nadobudnúť praxou.
@@ -36,6 +36,9 @@ Osnova (poznámky)
 
     Ktoje však za tento stav zodpovedný?
     Nie sú to nové požiadavky, je to práve ta pôvodná architektúra.
+
+    Každý chce tvoriť nový softvér, začínať na zelenej lúke s novými technológiami. Realita je však iná. Aj pokiaľ sa Vám podarí začať pracovať na niečom novom, tak väčšinu našej práce je rozširovanie existujúcich projektov. Každý kód, ktorý sme napísali včera, minlý mesiac, rok je v princípe zlý kód. Je to tak správne. Pretože sme ho písali s aktuálnymi vedomosťami, ktoré sme si opäť obohatili.
+    Technológie sa menia, menia sa rôzne techniky. Ale princípi, o ktorých si budeme dnes rozprávať sú stále. Boli sformulované pred 20rokmi a stále sú aktuálne.
 
     Najčastejšími chybami bývajú:
     1. Postupné nabaľovanie zodpovednosti jednotlivých tried.
@@ -68,6 +71,9 @@ Osnova (poznámky)
 > Every software module should have one, and only one reason to change.
 
 poznámky
+- Rob jednu vec a rob to dobre.
+- Je možné písať SMS počas šoférovania? Áno je to možné. Ale stači málo a vie to spôsobiť vážnu nehodu. Rovnako je to aj keď jedna trieda robí viacero vecí.
+- Zásah do takejto triedy môže spôsobiť chybu v inej časti programu. Systém je neprehľadný a náchylný na chyby.
 - Znamená to, že každá trieda, vo vašom systéme (aplikácia, knižnica, ...) má mať len jednu úloho. "Má robiť iba jednu vec."
 - Neznamená to, že môže mať len jednu metódu, respektíve property. Môže tam byť samozrejme viacero metód, ale musia sa vzťahovať k jednemu účelu.
 - Počas fázy návrhu nám to dáva dobrý spôsob identifikácie tried a núti nás to premýšľať, ako sa môže trieda v čase meniť.
@@ -111,7 +117,7 @@ public class PeopleController : Controller
                 // ..
                 mailMessage.To.Add(to);
                 mailMessage.Body = sb.ToString();
-                
+
                 client.Send(mailMessage);
             }
         }
@@ -128,7 +134,7 @@ Pozrime sa na tento jednoduchý príklad.
 Čo je to Controller? Vysvetli.
 
 Prečo nie je dobré, že to je napísané sem? Oki, narúša to SRP, pretože úlohou controllera je príjmať požiadavky.
-Ale prečo je to naozaj zle? 
+Ale prečo je to naozaj zle?
 
 Čo keď budeme chcieť tento istý report spraviť z iného miesta aplikácie? Čo keď to budeme chcieť použiť v desktopovej verzii?
 
