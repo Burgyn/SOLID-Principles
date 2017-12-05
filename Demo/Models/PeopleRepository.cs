@@ -6,7 +6,7 @@ using Kros.Utils;
 
 namespace MMLib.Demo.SOLIDPrinciples
 {
-    public class PeopleRepository
+    public class PeopleRepository: IPeopleRepository
     {
         private IDatabase _database = new Database("connectionString", "System.Data.SqlClient");
 
