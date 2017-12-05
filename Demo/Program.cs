@@ -14,11 +14,10 @@ namespace MMLib.Demo.SOLIDPrinciples
         {
             try
             {
-                var connectionString = args[0];
-                var mailTo = args[1];
-                var division = int.Parse(args[2]);
+                var mailTo = args[0];
+                var division = int.Parse(args[1]);
 
-                using(var database = new Database(connectionString, "System.Data.SqlClient"))
+                using(var database = new Database("connectionString", "System.Data.SqlClient"))
                 {
                     var sb = new StringBuilder();
                     var people = database
