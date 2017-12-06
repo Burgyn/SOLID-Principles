@@ -8,8 +8,110 @@ Osnova (poznámky)
 1. Kto som? Čo som? Prečo som tu?
     + Moje meno je Milan Martiniak. Som absolvent FRI a v súčasnosti pracujem ako senior developer v spoločnosti KROS a.s.
     + Starám sa o technologický rast projektov a ľudí na nich.
-1. O čom si budeme rozprávať?
-    + Dnes by som Vám chcel porozprávať svoje skúsenosti s vývojom vväčších (enterprise) projektov. S akými problémami sa stretávame a ako sa to dá riešiť.
+    + Budem rozprávať o SOLID princípoch. Keď som si začal túto prezentáciu pripravovať, tak som rozmýšľal ako na to? Na internete sú o tom mraky článkov, lepších aj horších, s učebnicovími príkladmi aj s príkladmi z reálneho sveta.
+    + Povedal som si, že to skúsim trošku ináč. Pokúsim sa Vám úkazať s akými problémami sa potýkajú ľudia pri vývojí softvéru, a ako sa tieto situácie dajú riešiť.
+    + Skúsim to spraviť trošku interaktívne, budem sa Vás často pýtať. A tiež dúfam, že sa budete pýtať vy mňa. Nebojte sa ma kedykoľvek prerušiť a opýtať na čokoľvek. 
+
+1. Kto z vás už počul pojem S.O.L.I.D Principles
+    + Začnem hneď prvou otázkou. Kto z vás už počul pojem SOLID principles?
+    + Super ... to je fajn. Aj Marek, to by sa patrilo :-)
+    + Nikto. Nevadí, veď práve preto ste prišli, aby ste sa o tom niečo dozvedeli.
+1. Kto z Vás vie vymenovať všetkých 5 princípov?
+    + To už je menej rúk, ale predsa sú.
+    + Takže Marek vieš vymenovať týchto 5 princípov?
+1. Kto vie vysvetliť LSP?
+    + Bol som na konferencii, kde bola celá sála senior vývojárov z celého česko-slovenska. Prezentujúci položil túto istú otázku a ani jedna ruka sa nezdvihla :-)
+    + Aj preto od kedy som Marekovi sľúbil, že spravím túto prednášku poriadne nespávam.
+    + Pretože vysvetliť SOLID principles je podľa mňa veľmi náročné.
+
+    + Na začiatok poviem, že nie je dôležité poznať tieto princípy. Ich mená ani definície. Dôležité je podľa nich vyvýjať a to sa dá aj bez toho aby ste ich poznali.
+    + Pretože, niekoho sa to musí učť, iný to získa oddretou praxou a niekto (tejto skupine vážne závidím) to má jednoducho v sebe. Pozrie sa na vec a prirodzene to spraví tak aby to bolo dobre. 
+
+1. Kto z Vás chce byť vývojárom / vývojárkou?
+    + Kto sa chce živiť tým, že bude vyvýjať softvér?
+
+1. Kto z Vás si myslí, že bude vyvýjať stále nový softvér?
+    + Realita je taká, že aj keď bude tý šťastnejší a budete mať možnosť robiť na voných projektoch.
+    + Tak raz daný projekt príde do produkcie (nasadí sa zákazníkom) a vy ho budete musieť rozvýjať (zapracovávať nové požiadavku, funkčnosť), udržiavať (opravovať chyb) atď..
+    + No a práve tu sa najviac ukáže to, ako dobre ste vašu aplikáciu navrhli.
+    + Vývojári sa zvyknú vyhovárať, že používateľ si toho navymýšľa a nám sa to ťažko zapracováva.
+    + Zákazník si bude stále vymýšľať nové požiadavky. Veď softvér mu má uľahčovať život. A na druhú stranu nás to živí. (účty niekto platiť musí)
+    + Chyba nie je v požiadavkách, chyba je častokrát v zlom návrhu.
+
+1. Čo vyplýva zo zlého návrhu?
+    (otázka)
+    + Zhoršuje sa čitateľnosť kódu.
+    + Zvyšuje sa pravdepodobnosť zavedenia nových chýb. (častá otázka testorov, čo si pokazil opravou tejto chyb?)
+    + Sú potrebný ľudia s komplexnou vedomosťou celého systému.
+    + Predražuje sa zapracovanie novej funkčnosti.
+
+1. Ako spoznáme zlý návrh?
+    (otázka)
+    + Jednotlivým triedam sa začne postupne nabaľovať zodpovednosť. (Vznikajú takzvané God classes)
+    + Vznikajú závyslosti a silné väzby medzi jednotlivými triedami. (Zmena v jednej môže mať za následok narušenie iných)
+    + Rozširovanie duplicitného kódu. (v rámci aplikácie sa začne rozširovať duplicitný kód. Keď budete chcieť opraviť, respektíve zmeniť funkčnosť na jednom mieste na n-ďalších zabudnete.)
+
+1. Čo sa s tým dá robiť?
+    (otázka)
+    + (Ideálne riešenie neexistuje. Objektívne - vždy sa nájde požiadavka /nemusí sa však realizovať/, ktorá naruší akokoľvek dobrý návrh)
+    + (Existuje, ale pár pravidiel, odporúčaní, zásad, usmernení, ..., ktoré to vedia výrazne zlepšiť.)
+    1. Výber správnej architektúry. (MVC, MVVM, MVP, Microservices, ...)
+        + Architektonické návrhové vzory. Dávajú nám šablónu na to, ako má vyzerať komunikácia medzi jednotlivými vrstvami aplikácie.
+    1. Nasledovanie Design Principles.
+    1. Používanie správnych návrhových vzorov na riešenie jednotlivých problémov.
+        1. Design patterns. Pôvodne GOF 23 vzorov. Pokrývajú väčšinu problémov, s ktorými sa pri vývojí aplikácií stretneme.
+
+1. Demo
+
+
+1. Kto z Vás si myslí, že toto je dobre napísaná aplikácia?
+    + Ja si to myslím. Veď som ju písal, nemôže byt predsa zlá. Programátori predsta máme svoje ego :-)
+    + Táto aplikácie môže byť v určitých súvyslostiach považovaná za dobre napísanú.
+    + Treba brať do úvahy dôvod pre ktorý vznikla.
+    + Ak zákazní, šéf, mzdárka, večer o 5tej zavolá, že by narýchlo potrebovala spraviť takýto report, pretože to potrebuje odovzdať na sociálku. Tak prečo nie, je to najrýchlejšia cesta ako to spraviť.
+    + Ak sa ale jedná o aplikáciu, ktorá sa má v budúcnosti rozširovať. Tak je to jednoznačne zlé napísané.
+    + Z veľa jednoúčelových, narýchlo napísaných aplikácií sa časom stane niečo väčšie.
+    + Tam by ale mal byť postup taký, že sa zastavíme, a prerobíme tú časť, ktorú potrebujeme rozširovať.
+
+1. Aké požiadavky môžu prísť na túto jednoduchú aplikáciu?
+    + Využitie na inom mieste.
+        + Chceme to použiť na inom mieste aplikácie.
+    + Zmena dátového zdroja
+        + Vo firme môžme mať viacero zdrojov, odkiaľ je tieto dáta možné získať.
+        + Táto aplikácia to má pevne viazané na databázu. (našťastie vďaka ORM, už mnohokrát neriešíme)
+        + Čo ak chceme ten report spraviť z nejakého xml, xls, z webovej službu?
+    + Zmena formátu reportu
+        + Zákazník si zmyslí, že pre účely prepojenia s iným softvérom to musí byť vo formáte JSON.
+    + Zmena spôsobu logovania
+        + Pretože sme napríklad na nejakom virtuálnom severi a nemáme právo zapisovať na disk
+    + Zmena spôsobu odosielania emailov.
+    + Nová funkčnosť
+        + Využiť túto aplikáciu na import zamestnancov z externých dát. Veď sú tam úž niektoré triedy na to pripravené, tak prečo to nevyužiť.
+    + a veľa ďalších ...
+    + (tieto všetky požiadavky môžu mať za následok, že začneme dopracovávať jednotlivé funkčnosti priamo do existujúcich tried a postupne sa z toho stane moloch.)
+
+1. Nevýhody
+    **ešte to preformuluj**
+    1. možno na začiatok zložitejší systém
+    1. určite viac kódu (chcel som spraviť porovnanie počtu riadkov pôvodnej aplikácie a finálnej, ale tým, že sme tam zapravcovali viac funkčnosti to nie je jednoduché. Tu to je cítiť. Ale pri väšej aplikácií sa to čiastočne vráti tým, že jednotlivé triedy sú znovupoužiteľné.)
+
+1. SOLID principles.
+    + Tak poďme konečne na to.
+    + Čo je to ten SOLID.
+    + Je to akronym.
+    + Jednolivé princípy majú svojich autorov, ale ako celok to sformuloval Robert C. (Cecil) Martin v komunite známi tiež ako Uncle Bob. 1996
+
+1. SRP
+    + Trieda má mať jeden, len jeden dôvod na zmenu.
+    + 
+---
+
+
+1. Otázky?
+    + To je z prezentácie všetko, chcem sa poďakovať Marekovi, že mi umožnil sa sem opäť postaviť.
+    + A teraz je priestor na voľnú debatu.
+
+
 1. Aké typy programátorov rozlišujem?
     + Ešte skôr ako začnem by som chcel povedať pár slov o tom ako ja rozdeľujem programátorov.
     1. Kóder
