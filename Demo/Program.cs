@@ -19,7 +19,11 @@ namespace MMLib.Demo.SOLIDPrinciples
                 var mailTo = args[0];
                 var division = int.Parse(args[1]);
 
-                var reportService = new PeopleReportService();
+                //var peopleRepository = new PeopleRepository();
+                //var peopleRepository = new XmlPeopleRepository();
+                var peopleRepository = new CachedPeopleRepository(new PeopleRepository());
+
+                var reportService = new PeopleReportService(peopleRepository);
 
                 reportService.SendReport(division, mailTo);
             }

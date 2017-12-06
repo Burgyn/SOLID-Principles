@@ -3,7 +3,7 @@ using System.Text;
 
 namespace MMLib.Demo.SOLIDPrinciples
 {
-    public class PeopleReportDataFormatter
+    public class PeopleReportDataFormatter: IPeopleReportDataFormatter
     {
         public string FormatData(IEnumerable<Person> people)
         {

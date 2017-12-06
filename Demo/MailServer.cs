@@ -2,7 +2,7 @@ using System.Net.Mail;
 
 namespace MMLib.Demo.SOLIDPrinciples
 {
-    public class MailServer
+    public class MailServer : IMailServer
     {
         public void SendMail(string to, string body)
         {
