@@ -16,22 +16,43 @@ namespace MMLib.Demo.SOLIDPrinciples
 
             try
             {
-                var mailTo = args[0];
-                var division = int.Parse(args[1]);
+                if (args[0] == "-r")
+                {
+                    var mailTo = args[1];
+                    var division = int.Parse(args[2]);
 
-                //var peopleRepository = new PeopleRepository();
-                //var peopleRepository = new XmlPeopleRepository();
-                var peopleRepository = new CachedPeopleRepository(new PeopleRepository());
-
-                var reportService = new PeopleReportService(peopleRepository);
-
-                reportService.SendReport(division, mailTo);
+                    SendReport(mailTo, division);
+                }
+                else if (args[0] == "-i")
+                {
+                    ImportPeople();
+                }
             }
             catch (Exception ex)
             {
                 logger.LogMessage(ex.ToString());
                 throw;
             }
+        }
+
+        private static void ImportPeople()
+        {
+            IPeopleRepository source = new XmlPeopleRepository();
+            PeopleRepository target = new PeopleRepository();
+            var importService = new PeopleImportService();
+
+            importService.Import(source, target);
+        }
+
+        private static void SendReport(string mailTo, int division)
+        {
+            //var peopleRepository = new PeopleRepository();
+            //var peopleRepository = new XmlPeopleRepository();
+            var peopleRepository = new CachedPeopleRepository(new PeopleRepository());
+
+            var reportService = new PeopleReportService(peopleRepository);
+
+            reportService.SendReport(division, mailTo);
         }
     }
 }

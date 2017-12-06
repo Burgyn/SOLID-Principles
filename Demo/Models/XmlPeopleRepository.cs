@@ -6,7 +6,24 @@ namespace MMLib.Demo.SOLIDPrinciples
 {
     public class XmlPeopleRepository : IPeopleRepository
     {
+        public void Add(Person person)
+        {
+            // Tu by mal byť kód, ktorý pridá osobu do zoznamu.
+        }
+
+        public void CommitChanges()
+        {
+            // Tu by mal byť kód, ktorý uloží dáta do Xml súboru.
+        }
+
+        public IEnumerable<Person> GetAll()
+        {
+            // Tu by mal byť pekný kód, ktorý deserializuje osoby z Xml.
+            return new List<Person>();
+        }
+
         public IEnumerable<Person> GetPeopleByDivision(int division) =>
-            throw new NotImplementedException("Tu by mal byť veľmi zaujímavý kód, ktorý by deserializoval osoby z Xml dokumentu do zoznamu Person.");
+            GetAll().Where(p => p.Division == division);
+
     }
 }
