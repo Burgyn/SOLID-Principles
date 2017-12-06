@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
 
 namespace MMLib.Demo.SOLIDPrinciples
 {
-    public class XlsPeopleRepository : PeopleRepository
+    public class XlsPeopleRepository : IReadOnlyPeopleRepository
     {
-        public override void Add(Person person) =>
-            throw new InvalidOperationException("Repository is ReadOnly");
+        private PeopleRepository _peopleRepository;
 
-        public override void CommitChanges() =>
-            throw new InvalidOperationException("Repository is ReadOnly");
+        public IEnumerable<Person> GetAll() =>
+            _peopleRepository.GetAll();
+
+        public IEnumerable<Person> GetPeopleByDivision(int division) =>
+            _peopleRepository.GetAll();
     }
 }
