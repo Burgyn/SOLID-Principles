@@ -10,7 +10,7 @@ Osnova (poznámky)
     + Starám sa o technologický rast projektov a ľudí na nich.
     + Budem rozprávať o SOLID princípoch. Keď som si začal túto prezentáciu pripravovať, tak som rozmýšľal ako na to? Na internete sú o tom mraky článkov, lepších aj horších, s učebnicovími príkladmi aj s príkladmi z reálneho sveta.
     + Povedal som si, že to skúsim trošku ináč. Pokúsim sa Vám úkazať s akými problémami sa potýkajú ľudia pri vývojí softvéru, a ako sa tieto situácie dajú riešiť.
-    + Skúsim to spraviť trošku interaktívne, budem sa Vás často pýtať. A tiež dúfam, že sa budete pýtať vy mňa. Nebojte sa ma kedykoľvek prerušiť a opýtať na čokoľvek. 
+    + Skúsim to spraviť trošku interaktívne, budem sa Vás často pýtať. A tiež dúfam, že sa budete pýtať vy mňa. Nebojte sa ma kedykoľvek prerušiť a opýtať na čokoľvek.
 
 1. Kto z vás už počul pojem S.O.L.I.D Principles
     + Začnem hneď prvou otázkou. Kto z vás už počul pojem SOLID principles?
@@ -25,14 +25,14 @@ Osnova (poznámky)
     + Pretože vysvetliť SOLID principles je podľa mňa veľmi náročné.
 
     + Na začiatok poviem, že nie je dôležité poznať tieto princípy. Ich mená ani definície. Dôležité je podľa nich vyvýjať a to sa dá aj bez toho aby ste ich poznali.
-    + Pretože, niekoho sa to musí učť, iný to získa oddretou praxou a niekto (tejto skupine vážne závidím) to má jednoducho v sebe. Pozrie sa na vec a prirodzene to spraví tak aby to bolo dobre. 
+    + Pretože, niekoho sa to musí učť, iný to získa oddretou praxou a niekto (tejto skupine vážne závidím) to má jednoducho v sebe. Pozrie sa na vec a prirodzene to spraví tak aby to bolo dobre.
 
 1. Kto z Vás chce byť vývojárom / vývojárkou?
     + Kto sa chce živiť tým, že bude vyvýjať softvér?
 
 1. Kto z Vás si myslí, že bude vyvýjať stále nový softvér?
-    + Realita je taká, že aj keď bude tý šťastnejší a budete mať možnosť robiť na voných projektoch.
-    + Tak raz daný projekt príde do produkcie (nasadí sa zákazníkom) a vy ho budete musieť rozvýjať (zapracovávať nové požiadavku, funkčnosť), udržiavať (opravovať chyb) atď..
+    + Realita je taká, že aj keď bude tí šťastnejší a budete mať možnosť robiť na nových projektoch.
+    + Tak raz daný projekt príde do produkcie (nasadí sa zákazníkom) a vy ho budete musieť rozvíjať (zapracovávať nové požiadavku, funkčnosť), udržiavať (opravovať chyb) atď..
     + No a práve tu sa najviac ukáže to, ako dobre ste vašu aplikáciu navrhli.
     + Vývojári sa zvyknú vyhovárať, že používateľ si toho navymýšľa a nám sa to ťažko zapracováva.
     + Zákazník si bude stále vymýšľať nové požiadavky. Veď softvér mu má uľahčovať život. A na druhú stranu nás to živí. (účty niekto platiť musí)
@@ -103,13 +103,81 @@ Osnova (poznámky)
 
 1. SRP
     + Trieda má mať jeden, len jeden dôvod na zmenu.
-    + 
----
+    +
+1. "Brilantný" Kóder
+    Ok, ale veď tu je predsa vždy len jeden dôvod. A to zmena pôvodných požiadaviek.
+
+1. Len jedna požiadavka
+    + Mám radšej túto definíciu.
+    + Neznamená to, že trieda má mať len jednu metódu, respektíve vlastnosť.
+    + Znamená to, že trieda má spracovávať len jeden typ požiadavky / potreby. Keď sa táto zmení, tak môžem zmeniť aj danú triedu.
+    + Trieda má mať jedinú zodpovednosť pre jednu požiadavku.
+    + Tak sa pozrime na našu aplikáciu ešte raz.
+
+1. Demo SRP
+    + Čo je tu vlastne zle.
+    + Máme tu jedinú triedu program.
+    + Aká je úloha triedy program? (otázka)
+        + Jej úloha je hostovať celú aplikáciu. Spracovať vstupné parametre a spustiť požadovanú funkčnosť.
+        + Naša trieda program robí úplne všetko.
+    + Aké samostatné triedy sa nám tu rysujú?
+        + Načítanie dát
+        + Formátovanie reportu
+        + odosielanie reportu
+        + logovanie
+    + Tak sa pozrime ako by to mohlo vyzerať podľa SRP
+        + Trieda program naozaj len hosťuje aplikáciu, spracuje vstupné parametre a zavolá potrebnú funkčnosť.
+        + Ďalej tu máme triedu PeopleReportService
+            + Jej úlohou je spracovať daný report. Ale ako vidíme nerobí to priamo. Len riadi tok spracovávania. Môžeme to brať ako šablónovú triedu, ktorá v správnom poradí volá metódy iných tried.
+        + PeopleRepository
+            + Repository pattern. To je pattern, ktorý zapúzdruje získavanie dát a ich mapovanie na entity v požadovanom tvare.
+            + Úlohou tejto triedy je získať dáta z (v tomto konkrétnom prípade z databázy pomocou nášho ORM) a poskytnúť ich ďalej.
+        + PeopleReportDataFormatter
+            + Zabezpečuje formátovanie, respektíve serializovanie dát (osôb)
+            + jej úlohou je naformátovať vstupné dáta na požadovaný formát reportu.
+        + MailService
+            + Tu je to jasné. Úlohou tejto triedy je odoslať mail. Všetko správne nastaviť, ...
+        + Logger
+            + Ten je teraz naozaj jednoduchý. Len uloží správu na disk.
+
+1. Aké sú výhody?
+    + Lepšia čitateľnosť.
+    + Lepšia udržateľnosť kódu.
+    + Ak príde požiadavka na zmenu načítavania dát viem kam ísť.
+    + Ak príde požiadavka na zmenu formatovania dát viem kam ísť.
+        + čo je v mnohých prípadoch naozaj potrebné.
+    + Výrazne vyššia znovupoužiteľnosť.
+    + Nejaké nevýhody?
+        + Veľa malých tried, môže byť odstrašujúci a v niektorých prípadoch takzvaný overkill.
+        + Napríklad ako v našom jednoduchom príklade.
+        + Mohol som ešte vyriešiť to, že report service teraz odosiela mail, ale čo keď chcem neodoslať mail, ale uložiť report na úložisko.
+        + Dennodenne sa budete potykať s tým, že budete balancovať do akej hĺbky riešiť jednotlivé pravidlá v danej chvíli. Je možné to riešiť až keď to bude potrebné.
+
+1. Open closed principles
+    + Trieda je otvorená pre rozšírenie, ale uzatvorená pre zmeny
+1. Brilantný kóder č. 2
+    + Čo??? To mám napísať triedu, ktorú je možné rozširovať, zlepšovať, pridávať nové veci, zapracovávať novú funkčnosť ale nemôžem sa jej dotknúť?
+    + V princípe áno.
+1. Keď je raz tirda dokončená, tak je dokončená
+    + Keď potrebujem novú vec, tak je to nová trieda
+    + Príde nová požiadavka, je to nová trieda
+    + jediný dôvod, prečo by sme mali otvoriť pôvodnú triedu a zmeniť v nej niečo by mala byť chyba. Jej oprava.
+    + Ok, nie je možné brať toto pravidlo doslovne. Súhlasím. Každopádne je potrebné sa nad tým zamýšľať.
+    + Otázka, ako teda mám napísať triedu, ktorú keď chcem rozširovať tak nezasiahnem do pôvodnej triedy?
+        + štandardný príklad ktorý sa pri tomto principe uvádza je s AreaCalculator. Trieda, ktorej podhodíme zoznam obdĺžnikov a ona spočíta ich plochu. Chceme ho rozlíšiť o spočítať plochu akýchkoľvek útvarov. Polymorfizmus.
+        + existujú ale aj rôzne iné techniky (visitor, strategy, decorator)
+1. OCP Demo
+    +
+
+
+
+
 
 
 1. Otázky?
     + To je z prezentácie všetko, chcem sa poďakovať Marekovi, že mi umožnil sa sem opäť postaviť.
     + A teraz je priestor na voľnú debatu.
+    +
 
 
 1. Aké typy programátorov rozlišujem?
