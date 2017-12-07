@@ -4,7 +4,7 @@ namespace MMLib.Demo.SOLIDPrinciples
 {
     public class PeopleReportService
     {
-        private IPeopleRepository _peopleRepository = new PeopleRepository();
+        private IPeopleRepository _peopleRepository;
         private IMailServer _mailServer = new MailServer();
         private IPeopleReportDataFormatter _reportDataFormatter = new PeopleReportDataFormatter();
 
