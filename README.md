@@ -62,7 +62,11 @@ Osnova (poznámky)
         1. Design patterns. Pôvodne GOF 23 vzorov. Pokrývajú väčšinu problémov, s ktorými sa pri vývojí aplikácií stretneme.
 
 1. Demo
-
+    + Jednotlivé princípi o ktorých budeme rozprávať si skúsime ukázať na jednoduchej aplikácií.
+    + Na čo slúži táto aplikácia
+        + Na prvý pohľad sa pripája na databázu
+        + vyberá z nej zoznam osôb podľa divízie. Naformátuje tieto dáta ako html stránku a pošle to emailom
+        + Čiže jedná sa o veľmi jednoduchú reportovaciu aplikáciu.
 
 1. Kto z Vás si myslí, že toto je dobre napísaná aplikácia?
     + Ja si to myslím. Veď som ju písal, nemôže byt predsa zlá. Programátori predsta máme svoje ego :-)
@@ -167,12 +171,79 @@ Osnova (poznámky)
         + štandardný príklad ktorý sa pri tomto principe uvádza je s AreaCalculator. Trieda, ktorej podhodíme zoznam obdĺžnikov a ona spočíta ich plochu. Chceme ho rozlíšiť o spočítať plochu akýchkoľvek útvarov. Polymorfizmus.
         + existujú ale aj rôzne iné techniky (visitor, strategy, decorator)
 1. OCP Demo
-    +
+    + Povedzme si, že sme dostali požiadavku aby táto naša aplikácia umožňovala spraviť report aj z dát, ktoré sa nachádzajú v Xml súbore. 
+    + Následne dostaneme požiadavku aby sme dáta kešovali.
+    + Na prácu s dátami nám slúži naša trieda PeopleRepository a používajú trieda PeopleReportService.
+    + Ako teda zapracovať túto požiadavku, bez toho aby sme zasiahli do existjúcich tried?
+    + Naše triedy ešte na rozširovanie pripravené niesu. Preto to musíme trošku zrefaktorovať.
+    + Vytvoríme si interfejs IPeopleRepository, ktoré popisuje triedy, ktoré nám vedia poskytnúť potrebné dáta.
+    + V triede PeopleReportService sa nebudeme odkazovať na pôvodnú triedu, ale budeme sa odkazovať na jej interfejs.
+    + Ako náhle naša trieda závisí na rozhraní (abstraktnej triede) máme ju pripravenú pre budúce rozširovanie.
+    + Ak vieme odhadnúť takéto miesta (miesta, kde predpokladáme možné rozširovanie) vieme mať triedy na to pripravené.
+    + Implementáciu si necháme poslať cez konštruktor.
+    + Teraz je naša trieda PeopleReportService pripravená na rozšírenie.
+    + Môžeme vytvoriť si vytvoriť triedu XmlPeopleRepository, ktorá bude implementovať daný interfejs a môžeme jej inštanciu poslať.
 
+    + čo ale s tým kešovaním?
+    + Ako zapracovať kešovanie tak aby sme teraz, keď už máme tie triedy zrefaktorované podľa OCP tak, aby sme nezmenili ani kúsok kódu v nich?
+    + Nejaký nápad?
+    + Použijeme návrhový vzor Decorator.
+        + Odekorujeme / obalíme pôvodnú triedu novou funkčnosťou.
+        + V praxy sa to robí tak, že vytvoríme novú implementáciu daného interfejsu a pošleme mu cez rovnaký interfejs pôvodnú triedu.
+        + Obalíme to funkčnosťou, ktorú potrebujeme (kešovanie, logovanie, šifrovanie).
+        + Ukážeme si radšej na kóde.
+        + Vytvorili sme si triedu CachedPeopleRepository, ktorá cez konštruktor dostala inštanciu inej implementácie IPeopleRepository.
+        + Keď niekto zavolá metódu GetPeopleByDivision, tak najskôr skontroluje, či sa nenachádza v keši (naozaj primitívna keš), ak sa tam nachádza vráti dáta z keše, inak použije pôvodnú implementáciu na získanie dát.
+        + Takto sme dokázali pridať novú funkčnosť bez toho aby sme zmenili pôvodné triedu.
+        + Už stačí len poslať správne repository do PeopleReportService.
 
+1. Benefity?
+    Decorator?
+        + To kešovanie bolo naozaj jednoduché, ale keby bolo také ako má naozaj byť tak by to bolo zložitejšie. Teraz si pradstavme, že tých požiadaviek je naozaj viac. Chceme to logovať, šifrovať a ja neviem čo ešte. To by ta pôvodná trieda celkom výrazne naboptnala. A čo keď si niekto celkom regulérne zmyslí, že aj ostatné implementácie IPeopleRepository chcú kešovať, logovať a šifrovať? Tak to potom máme celkom problém.
+        + Takto je to znovupoužiteľné
+        + Hlavne nezanášame chyby do eistujúcich tried
+        + Kedykoľvek otvoríte starší softvér a čokoľvek zmeníte, zavádzate tam potenciálne chyby. Obľúbená otázka testerov je čo všetko si pokazil opravou tejto chyby?
 
+        + Poznáte unit testy?
+            + Ja mám veľmi rád unit testy. Pokiaľ to okolnosti umožňujú tak sa snažím o TDD.
+            + Je veľmi ťažké testovať triedy, ktoré sa týmto pravidlom neriadia.
+            + Nenapíšete test na triedu, ktorá priamo pristupuje k produkčnej databáze.
+            + Tiedam, ktoré viete rozšíriť v testoch podhodíte implementáciu, ktorá vám vyhovuje.
 
+1. LSP
+    + Ako som spomínal, toto je podľa mňa najťažsie pravidlo na vysvetlenie. A pritom definícia je jednozačná:
+    + Let ϕ ( x ) {\displaystyle \phi (x)} \phi (x) be a property provable about objects x {\displaystyle x} x of type T. Then ϕ ( y ) {\displaystyle \phi (y)} {\displaystyle \phi (y)} should be true for objects y {\displaystyle y} y of type S where S is a subtype of T.
+    + Jasné nie?
+    + Ehm, čo povedala? Vykrík človeka na konferencii kde to Barbara Liskov's prvý krát prezentovala.
+ 
+    + you should be able to use any derived class instead of a parent class and have it behave in the same manner without modification
+    + Toto pravidlo Vás navádza k tomu, aby ste sa uisťovali, že odvodená / zdedená trieda neovplyvní správanie rodičovskej triedy.
+    + Inými slovami povedané zdedená trieda musí byť zastupiteľná rodičovskou.
 
+1. Demo: Čo sa stane keď budeme ignorovať LSP
+    + Predstavme si, že máme novú požiadavku na našu aplikáciu. Už to nemá byť len reprotovací nástroj, ale má vedieť aj importovať zamestnancov z iných podkladov.
+    + Trieda program správne rozhodne kam má preposlať požiadavku.
+    + V našom novom prípade je to trieda PeopleImportService.
+    + Táto trieda dostane dve implementácie IPeopleRepository, jednú zdrojovú a jednu cieľovú.
+    + Prejde položky zo zdroja, pridá ich do cieľa a uloží zmeny.
+    + Museli sme upraviť interfejs, pridať do neho potrebné metódy a implementovať ich do existujúcich tried PeopleRepository, XmlPeopleRepository, CachedPeopleRepository
+    + V princípe celkom fajn napísané.
+
+    + Čo ale keď dostanem požiadavku napojiť sa nový zdroj dát napríklad excel?
+    + Náš ORM dokáže pri nastavení správne connection stringu materializovať dáta aj z excelu (ukladať ich však nedokáže)
+    + Máme už zložitú implementáciu PeopleRepository, tak čo keby sme túto novú triedu zdedili práve z nej. Ušetríme si veľa roboty.
+    + No a v tých metódach, ktoré teraz nepodporujeme korektne vyhodíme výnimku.
+
+    + čo sa stane pokiaľ takúto implementáciu omylom použijeme ako cieľ pre import?
+        + padne to v runtime.
+        + Možno sa nám zdá, že veď túto je to jasné, nikdy by som to tam nedal a podobne. Áno je to pravda. je ten príklad trošku silený. Ale v zložitejšej aplikácií sa Vám stane to, že vám niekde príde iná implementácia ako očakávate.
+    + Ako to riešiť? LSP ako také riešenie nedáva, len poukazuje na problém. Riešenie si ukážeme pomocou ďalšieho princípu.
+1. Benefity
+    + Vždy keď využívame dedičnosť / respektíve máme viac implementácií jedného repository, tak bojujeme s tým že na toto narazíme. Vo veľej aplikácií sa to stáva často a býva to problém. Na takomto menšom príklade sa to ťažko ukazuje.
+    + Vždy keď idete využiť dedičnosť, tak sa zamyslíte kvôli čomu to ribíte. Či to je naozaj správne a či to nie je len kvôli zdieľaniu kódu. Ak je to kvôli tomu, tak radšej zvoľte kompozíciu ako dedičnosť.
+    + Ak dodržujete predchadzajúce princípi (SRP, OPC) vzniká vám väčšie množstvo tried. Pokiaľ nebudete dodržiavať LSP, tak je veľmi ľahké vytvoriť novú triedu, korá vám časom rozbije aplikáciu.
+    + LSP je hlavne o tom, dávať si pozor na to ako implementuje nové triedy. Aby sme nenarušili očakávané správanie.
+    + **Takže benefit je, že nepokazíte starý kód, ktorý tieto triedy využíva.**
 
 1. Otázky?
     + To je z prezentácie všetko, chcem sa poďakovať Marekovi, že mi umožnil sa sem opäť postaviť.
