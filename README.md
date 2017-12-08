@@ -257,6 +257,8 @@ Osnova (poznámky)
     + Taktiež sme upravili triedu PeopleReportService, pretože jej práve stačí jednoduchšia varianta.
     + Toto nám rozviazalo ruky a môžeme jednoduchšie zapracovávať zdroje, ktoré neumožňujú ukladať dáta.
     + XmlPeopleRepository, HttpPeopleRepository, ...
+1. Benefity
+    +
 
 1. Otázky?
     + To je z prezentácie všetko, chcem sa poďakovať Marekovi, že mi umožnil sa sem opäť postaviť.
