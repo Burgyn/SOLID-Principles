@@ -171,7 +171,7 @@ Osnova (poznámky)
         + štandardný príklad ktorý sa pri tomto principe uvádza je s AreaCalculator. Trieda, ktorej podhodíme zoznam obdĺžnikov a ona spočíta ich plochu. Chceme ho rozlíšiť o spočítať plochu akýchkoľvek útvarov. Polymorfizmus.
         + existujú ale aj rôzne iné techniky (visitor, strategy, decorator)
 1. OCP Demo
-    + Povedzme si, že sme dostali požiadavku aby táto naša aplikácia umožňovala spraviť report aj z dát, ktoré sa nachádzajú v Xml súbore. 
+    + Povedzme si, že sme dostali požiadavku aby táto naša aplikácia umožňovala spraviť report aj z dát, ktoré sa nachádzajú v Xml súbore.
     + Následne dostaneme požiadavku aby sme dáta kešovali.
     + Na prácu s dátami nám slúži naša trieda PeopleRepository a používajú trieda PeopleReportService.
     + Ako teda zapracovať túto požiadavku, bez toho aby sme zasiahli do existjúcich tried?
@@ -215,7 +215,7 @@ Osnova (poznámky)
     + Let ϕ ( x ) {\displaystyle \phi (x)} \phi (x) be a property provable about objects x {\displaystyle x} x of type T. Then ϕ ( y ) {\displaystyle \phi (y)} {\displaystyle \phi (y)} should be true for objects y {\displaystyle y} y of type S where S is a subtype of T.
     + Jasné nie?
     + Ehm, čo povedala? Vykrík človeka na konferencii kde to Barbara Liskov's prvý krát prezentovala.
- 
+
     + you should be able to use any derived class instead of a parent class and have it behave in the same manner without modification
     + Toto pravidlo Vás navádza k tomu, aby ste sa uisťovali, že odvodená / zdedená trieda neovplyvní správanie rodičovskej triedy.
     + Inými slovami povedané zdedená trieda musí byť zastupiteľná rodičovskou.
@@ -244,6 +244,19 @@ Osnova (poznámky)
     + Ak dodržujete predchadzajúce princípi (SRP, OPC) vzniká vám väčšie množstvo tried. Pokiaľ nebudete dodržiavať LSP, tak je veľmi ľahké vytvoriť novú triedu, korá vám časom rozbije aplikáciu.
     + LSP je hlavne o tom, dávať si pozor na to ako implementuje nové triedy. Aby sme nenarušili očakávané správanie.
     + **Takže benefit je, že nepokazíte starý kód, ktorý tieto triedy využíva.**
+
+1. ISP
+1. Nenúťme klienta závysieť na od interfejsov, ktoré nepotrebuje.
+1. No a čo keď toho má k dispozícií viac ako potrbuje? Veď nech to ignoruje... Brilantný kóder č.3
+1. Rozdelenie interfejsov na menšie časti umožní ich jednoduchšiu implementáciu a ponúka nám kontrolu nad tým, kto čo vidí.
+    + Pokiaľ potrebujete vytvoriť novú implementáciu požadovaného interfejsu a toto pravidlo nemáte dodržané, s určitosťou sa Vám stane, že vo väčšine prípadov budete písať throw new NotImplementationException() a dostanete sa do stavu, ktorý sme si predchíľou popisovali.
+1. Demo
+    + Rozdelíme si pôvodný interfejs na dva nové IReadOnlyPeopleRepository a IWritablePeopleRepository
+    + Pôvodný interfejs samozrejme môžme nechať. Sú situácie, kde sa to hodí.
+    + Pôvodnú triedu importu sme upravili tak, že ako source má odkaz na IReadOnlyPeopleRepository a target IWritablePeopleRepository.
+    + Taktiež sme upravili triedu PeopleReportService, pretože jej práve stačí jednoduchšia varianta.
+    + Toto nám rozviazalo ruky a môžeme jednoduchšie zapracovávať zdroje, ktoré neumožňujú ukladať dáta.
+    + XmlPeopleRepository, HttpPeopleRepository, ...
 
 1. Otázky?
     + To je z prezentácie všetko, chcem sa poďakovať Marekovi, že mi umožnil sa sem opäť postaviť.
