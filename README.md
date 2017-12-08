@@ -258,7 +258,11 @@ Osnova (poznámky)
     + Toto nám rozviazalo ruky a môžeme jednoduchšie zapracovávať zdroje, ktoré neumožňujú ukladať dáta.
     + XmlPeopleRepository, HttpPeopleRepository, ...
 1. Benefity
-    +
+    + Umožňuje to dodržať LSP
+    + Jednoduchšie zapracovávanie nových implementácií
+    + Nemusíme implementovať veci, ktoré sú v našom kontexte nepotrebné
+    + A samozrejme, klient, ktorý používa náš interfejs, nemusí rozmýšľať na čo sú tie všetky metódy. Má len to čo naozaj potrebuje.
+
 
 1. Otázky?
     + To je z prezentácie všetko, chcem sa poďakovať Marekovi, že mi umožnil sa sem opäť postaviť.
