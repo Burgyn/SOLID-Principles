@@ -4,11 +4,11 @@ namespace MMLib.Demo.SOLIDPrinciples
 {
     public class PeopleReportService
     {
-        private IReadOnlyPeopleRepository _peopleRepository = new PeopleRepository();
+        private IReadOnlyPeopleRepository _peopleRepository;
         private IMailServer _mailServer = new MailServer();
         private IPeopleReportDataFormatter _reportDataFormatter = new PeopleReportDataFormatter();
 
-        public PeopleReportService(IPeopleRepository peopleRepository)
+        public PeopleReportService(IReadOnlyPeopleRepository peopleRepository)
         {
             Check.NotNull(peopleRepository, nameof(peopleRepository));
 
