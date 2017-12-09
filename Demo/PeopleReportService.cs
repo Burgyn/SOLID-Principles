@@ -2,7 +2,7 @@ using Kros.Utils;
 
 namespace MMLib.Demo.SOLIDPrinciples
 {
-    public class PeopleReportService
+    public class PeopleReportService: IPeopleReportService
     {
         private IReadOnlyPeopleRepository _peopleRepository;
         private IMailServer _mailServer = new MailServer();

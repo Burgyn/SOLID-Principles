@@ -1,58 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using Kros.KORM;
-using Kros.KORM.Metadata.Attribute;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace MMLib.Demo.SOLIDPrinciples
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var logger = new Logger();
-
-            try
-            {
-                if (args[0] == "-r")
-                {
-                    var mailTo = args[1];
-                    var division = int.Parse(args[2]);
-
-                    SendReport(mailTo, division);
-                }
-                else if (args[0] == "-i")
-                {
-                    ImportPeople();
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.LogMessage(ex.ToString());
-                throw;
-            }
+            BuildWebHost(args).Run();
         }
 
-        private static void ImportPeople()
-        {
-            IPeopleRepository source = new XmlPeopleRepository();
-            PeopleRepository target = new PeopleRepository();
-            var importService = new PeopleImportService();
-
-            importService.Import(source, target);
-        }
-
-        private static void SendReport(string mailTo, int division)
-        {
-            //var peopleRepository = new PeopleRepository();
-            //var peopleRepository = new XmlPeopleRepository();
-            var peopleRepository = new CachedPeopleRepository(new PeopleRepository());
-
-            var reportService = new PeopleReportService(peopleRepository);
-
-            reportService.SendReport(division, mailTo);
-        }
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .Build();
     }
 }

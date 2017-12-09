@@ -1,6 +1,6 @@
 namespace MMLib.Demo.SOLIDPrinciples
 {
-    public class PeopleImportService
+    public class PeopleImportService: IPeopleImportService
     {
         public void Import(IReadOnlyPeopleRepository source, IWritablePeopleRepository target)
         {
