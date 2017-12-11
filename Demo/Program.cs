@@ -19,9 +19,9 @@ namespace MMLib.Demo.SOLIDPrinciples
                 if (args[0] == "-r")
                 {
                     var mailTo = args[1];
-                    var division = int.Parse(args[2]);
+                    var derpartment = int.Parse(args[2]);
 
-                    SendReport(mailTo, division);
+                    SendReport(mailTo, derpartment);
                 }
                 else if (args[0] == "-i")
                 {
@@ -44,7 +44,7 @@ namespace MMLib.Demo.SOLIDPrinciples
             importService.Import(source, target);
         }
 
-        private static void SendReport(string mailTo, int division)
+        private static void SendReport(string mailTo, int derpartment)
         {
             //var peopleRepository = new PeopleRepository();
             //var peopleRepository = new XmlPeopleRepository();
@@ -52,7 +52,7 @@ namespace MMLib.Demo.SOLIDPrinciples
 
             var reportService = new PeopleReportService(peopleRepository);
 
-            reportService.SendReport(division, mailTo);
+            reportService.SendReport(derpartment, mailTo);
         }
     }
 }

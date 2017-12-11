@@ -26,8 +26,8 @@ namespace MMLib.Demo.SOLIDPrinciples
         public IEnumerable<Person> GetAll() =>
             _peopleRepository.GetAll();
 
-        public IEnumerable<Person> GetPeopleByDivision(int division) =>
-            _cachedValues.GetOrAdd(division, x => _peopleRepository.GetPeopleByDivision(division));
+        public IEnumerable<Person> GetPeopleByDivision(int derpartment) =>
+            _cachedValues.GetOrAdd(derpartment, x => _peopleRepository.GetPeopleByDivision(derpartment));
 
     }
 }
