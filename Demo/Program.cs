@@ -15,14 +15,14 @@ namespace MMLib.Demo.SOLIDPrinciples
             try
             {
                 var mailTo = args[0];
-                var division = int.Parse(args[1]);
+                var department = int.Parse(args[1]);
 
                 using(var database = new Database("connectionString", "System.Data.SqlClient"))
                 {
                     var sb = new StringBuilder();
                     var people = database
                         .Query<Person>()
-                        .Where(p => p.Division == division);
+                        .Where(p => p.Department == department);
 
                     sb.AppendLine(@"<html>
                                     <body>
