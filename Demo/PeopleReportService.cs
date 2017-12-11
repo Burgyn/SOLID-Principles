@@ -17,7 +17,7 @@ namespace MMLib.Demo.SOLIDPrinciples
 
         public void SendReport(int derpartment, string mailTo)
         {
-            var people = _peopleRepository.GetPeopleByDivision(derpartment);
+            var people = _peopleRepository.GetPeopleByDepartment(derpartment);
             var body = _reportDataFormatter.FormatData(people);
 
             _mailServer.SendMail(mailTo, body);

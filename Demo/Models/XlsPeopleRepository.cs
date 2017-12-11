@@ -10,7 +10,7 @@ namespace MMLib.Demo.SOLIDPrinciples
         public IEnumerable<Person> GetAll() =>
             _peopleRepository.GetAll();
 
-        public IEnumerable<Person> GetPeopleByDivision(int derpartment) =>
+        public IEnumerable<Person> GetPeopleByDepartment(int derpartment) =>
             _peopleRepository.GetAll();
     }
 }

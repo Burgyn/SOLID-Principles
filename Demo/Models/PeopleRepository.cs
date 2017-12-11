@@ -26,7 +26,7 @@ namespace MMLib.Demo.SOLIDPrinciples
         public virtual IEnumerable<Person> GetAll() =>
             _dbSet;
 
-        public virtual IEnumerable<Person> GetPeopleByDivision(int derpartment) =>
+        public virtual IEnumerable<Person> GetPeopleByDepartment(int derpartment) =>
             GetAll().Where(p => p.Derpartment == derpartment);
     }
 }
