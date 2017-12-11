@@ -20,9 +20,9 @@ namespace MMLib.Demo.SOLIDPrinciples.Controllers
         }
 
         [HttpPost()]
-        public void SendReport([FromBody] int division, [FromBody] string mailTo)
+        public void SendReport([FromBody] int department, [FromBody] string mailTo)
         {
-            _peopleReportService.SendReport(division, mailTo);
+            _peopleReportService.SendReport(department, mailTo);
         }
     }
 }

@@ -22,8 +22,8 @@ namespace MMLib.Demo.SOLIDPrinciples
             return new List<Person>();
         }
 
-        public IEnumerable<Person> GetPeopleByDivision(int division) =>
-            GetAll().Where(p => p.Division == division);
+        public IEnumerable<Person> GetPeopleByDepartment(int department) =>
+            GetAll().Where(p => p.Department == department);
 
     }
 }
