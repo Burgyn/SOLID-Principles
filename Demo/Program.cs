@@ -17,11 +17,11 @@ namespace MMLib.Demo.SOLIDPrinciples
             try
             {
                 var mailTo = args[0];
-                var division = int.Parse(args[1]);
+                var department = int.Parse(args[1]);
 
                 var reportService = new PeopleReportService();
 
-                reportService.SendReport(division, mailTo);
+                reportService.SendReport(department, mailTo);
             }
             catch (Exception ex)
             {
