@@ -17,16 +17,16 @@ namespace MMLib.Demo.SOLIDPrinciples
             _all = new Lazy<IEnumerable<Person>>(() => _peopleRepository.GetAll());
         }
 
-        public IEnumerable<Person> GetPeopleByDivision(int division) =>
-            _cachedValues.GetOrAdd(division, x => _peopleRepository.GetPeopleByDivision(division));
+        public IEnumerable<Person> GetPeopleByDepartment(int department) =>
+            _cachedValues.GetOrAdd(department, x => _peopleRepository.GetPeopleByDepartment(department));
 
         void IPeopleRepository.Add(Person person) =>
             _peopleRepository.Add(person);
 
-        void IPeopleRepository.CommitChanges() =>
+        public void CommitChanges() =>
             _peopleRepository.CommitChanges();
 
-        IEnumerable<Person> IPeopleRepository.GetAll() =>
+        public IEnumerable<Person> GetAll() =>
             _all.Value;
     }
 }
