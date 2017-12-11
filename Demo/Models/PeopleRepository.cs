@@ -10,7 +10,7 @@ namespace MMLib.Demo.SOLIDPrinciples
     {
         private IDatabase _database = new Database("connectionString", "System.Data.SqlClient");
 
-        public IEnumerable<Person> GetPeopleByDivision(int division) =>
-            _database.Query<Person>().Where(p => p.Division == division);
+        public IEnumerable<Person> GetPeopleByDepartment(int department) =>
+            _database.Query<Person>().Where(p => p.Department == department);
     }
 }

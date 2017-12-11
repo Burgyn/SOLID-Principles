@@ -17,7 +17,7 @@ namespace MMLib.Demo.SOLIDPrinciples
             try
             {
                 var mailTo = args[0];
-                var division = int.Parse(args[1]);
+                var department = int.Parse(args[1]);
 
                 //var peopleRepository = new PeopleRepository();
                 //var peopleRepository = new XmlPeopleRepository();
@@ -25,7 +25,7 @@ namespace MMLib.Demo.SOLIDPrinciples
 
                 var reportService = new PeopleReportService(peopleRepository);
 
-                reportService.SendReport(division, mailTo);
+                reportService.SendReport(department, mailTo);
             }
             catch (Exception ex)
             {
